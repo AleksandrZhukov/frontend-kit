@@ -1,0 +1,19 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../components.html")
+
+polymer-element(name="irregular-verb" attributes="verb")
+  template
+    link(rel="stylesheet" href="irregular-verb.css")
+
+    paper-shadow(z="1")
+      paper-item(raised on-tap="{{ toggleVerb }}")
+        h3 {{ verb.base }}
+      core-collapse#forms
+        .content(layout vertical)
+          template(repeat="{{ form in forms }}")
+            div(layout horizontal center)
+              h5.form-title {{ form.desc }}
+              paper-item(raised flex on-tap="{{ copy }}")
+                h4.form-value {{ verb[form.name] }}
+
+  script(src="irregular-verb.js")

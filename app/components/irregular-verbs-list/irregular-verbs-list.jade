@@ -1,0 +1,15 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../components.html")
+
+polymer-element(name="irregular-verbs-list")
+  template
+    link(rel="stylesheet" href="irregular-verbs-list.css")
+
+    core-header-panel
+      .core-header(layout horizontal)
+        paper-input( flex label="Type the verb" value="{{ inputValue }}")
+      .content
+        template(repeat="{{ verb in verbs | matchVerb(inputValue) }}")
+          irregular-verb(verb="{{ verb }}")
+
+  script(src="irregular-verbs-list.js")

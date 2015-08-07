@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+core-header-panel {
+  height: 100%;
+}
+
+.core-header {
+  background-color: #03a9f4;
+  color: #fff;
+  padding: 0 10px;
+}
+
+paper-input::shadow paper-input-decorator {
+  input::-webkit-input-placeholder {
+    color: #b3e5fc;
+  }
+  &::shadow {
+    .unfocused-underline {
+      background-color: #b3e5fc;
+    }
+    .focused-underline {
+      background-color: #fff;
+    }
+
+  }
+}
+
+.content{
+  margin: 20px 0;
+}
