@@ -48,6 +48,7 @@ gulp.task('jade', function () {
 //Scripts
 gulp.task('components_js', function () {
   gulp.src('./app/components/**/*.js')
+    .pipe(plugins.babel())
     .pipe(gulp.dest('dist/components'))
     .pipe(plugins.size({title: 'js'}));
 });

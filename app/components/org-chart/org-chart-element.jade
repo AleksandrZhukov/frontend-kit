@@ -1,0 +1,12 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../components.html")
+
+polymer-element(name='org-chart-element' attributes='user shift parentMidPoint parentShift')
+  template
+    link(rel='stylesheet' href='org-chart-element.css')
+    .line
+    org-chart-user(user="{{ user }}" shift="{{ shift }}" parentMidPoint="{{ parentMidPoint }}" parentShift="{{ parentShift }}" elementShift="{{ elShift }}")
+
+
+
+  script(src="org-chart-element.js")

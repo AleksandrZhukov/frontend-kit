@@ -1,0 +1,22 @@
+:host {
+  display: table;
+  border-spacing: 0;
+}
+
+:host(.rounded) {
+  img, .initials {
+    border-radius: 50%;
+  }
+}
+
+img {
+  max-width: 100%;
+  object-fit: cover;
+  vertical-align: top;
+}
+
+.initials {
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}

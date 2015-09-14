@@ -1,0 +1,15 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../components.html")
+link(rel='import' href='./org-chart-user.html')
+link(rel='import' href='./org-chart-element.html')
+
+polymer-element(name='org-chart' attributes='')
+  template
+    link(rel='stylesheet' href='org-chart.css')
+
+    div(relative layout horizontal)
+      template(repeat="{{ user in json }}")
+        div(relative)
+          org-chart-element(user="{{ user }}" parentShift="{{ parentShift }}")
+
+  script(src="org-chart.js")

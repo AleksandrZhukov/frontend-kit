@@ -1,0 +1,13 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../components.html")
+
+polymer-element(name='ch-avatar' attributes='name src size color')
+  template
+    link(rel='stylesheet' href='ch-avatar.css')
+
+    template(if='{{ !showInitials }}')
+      img(src='{{ src }}' alt='{{ name }}' width='{{ width }}' height='{{ height }}' style='width:{{ width }}px; height:{{ height }}px' )
+    template(if='{{ showInitials }}')
+      .initials(style="width:{{ width }}px; height: {{ height }}px; background: {{ color }}; font: {{ fontSize }}px/{{ height + height/15 }}px Helvetica, Arial, sans-serif;") {{ initials }}
+
+  script(src="ch-avatar.js")

@@ -1,0 +1,33 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../components.html")
+
+polymer-element(name='org-chart-user' attributes='user')
+  template
+    link(rel='stylesheet' href='org-chart-user.css')
+    .text-center
+      #manager.item(relative)
+        paper-shadow(layout vertical center)
+          ch-avatar.rounded(name='{{ user.name }}' size='100x100')
+          h3 {{ user.name }}
+          .user-position {{ user.position }}
+        .vertical-line
+    #container(layout horizontal)
+      #left-part(layout horizontal)
+        template(if="{{ usersWithSubordinates }}")
+          template(repeat="{{ subordinate in leftPartOfManagers }}")
+            org-chart-element(user="{{ subordinate }}" shift="{{ shift }}" parentMidPoint="{{ parentMidPoint }}" parentShift="{{ forChild }}")
+
+      template(if="{{ usersWithOutSubordinates.length > 0 }}")
+        .item.no-subordinates(relative)
+          template(repeat="{{ subordinate in usersWithOutSubordinates }}")
+            .no-subordinates-item(layout horizontal center)
+              ch-avatar.rounded(name="{{ subordinate.name }}" size="30x30")
+              | {{ subordinate.name }}
+      #right-part(layout horizontal)
+        template(if="{{ usersWithSubordinates }}")
+          template(repeat="{{ subordinate in rightPartOfManagers }}")
+            org-chart-element(user="{{ subordinate }}" shift="{{ shift }}" parentMidPoint="{{ parentMidPoint }}" parentShift="{{ forChild }}")
+
+
+
+  script(src="org-chart-user.js")

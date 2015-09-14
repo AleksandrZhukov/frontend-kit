@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+
+.line {
+  position: absolute;
+  height: 1px;
+  background-color: #e2e2e2;
+  top: -10px;
+  left: 0;
+
+}
