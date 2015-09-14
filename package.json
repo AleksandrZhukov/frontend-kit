@@ -21,6 +21,7 @@
     "gulp-postcss": "^5.1.9",
     "gulp-rename": "^1.2.2",
     "gulp-size": "^1.2.3",
+    "gulp-vulcanize": "^5.0.0",
     "gulp-wrap": "^0.11.0",
     "jade": "^1.11.0",
     "merge-stream": "^0.1.8",

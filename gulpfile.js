@@ -60,6 +60,21 @@ gulp.task('server', ['default'], function () {
   });
 });
 
+// Vulcanize imports
+// available options described here https://github.com/Polymer/grunt-vulcanize/tree/0.5.0
+gulp.task('vulcanize', function () {
+  var DEST_DIR = 'dist/components';
+
+  return gulp.src(['dist/components/components.html'])
+    .pipe(plugins.vulcanize({
+      dest: DEST_DIR,
+      strip: true,
+      inline: true
+    }))
+    .pipe(gulp.dest(DEST_DIR))
+    .pipe(plugins.size({title: 'vulcanize'}));
+});
+
 // Main task
 gulp.task('default', ['clean'], function () {
   gulp.src(['bower_components/**/*']).pipe(gulp.dest('dist/bower_components'));
