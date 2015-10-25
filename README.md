@@ -2,6 +2,7 @@
 - Gulp
 - Jade
 - PostCss
+- Babel
 
 ## Start project
 - [Install Node.js](https://github.com/creationix/nvm)

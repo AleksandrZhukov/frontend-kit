@@ -38,6 +38,14 @@ gulp.task('jade', function () {
     .pipe(plugins.size({title: 'jade'}));
 });
 
+// JS
+gulp.task('js', function () {
+  return gulp.src('app/**/*.js')
+    .pipe(plugins.babel())
+    .pipe(gulp.dest('dist/'))
+    .pipe(plugins.size({title: 'js'}));
+});
+
 // Start server
 gulp.task('server', ['default'], function () {
   browserSync({
@@ -49,11 +57,12 @@ gulp.task('server', ['default'], function () {
 // Main task
 gulp.task('default', ['clean'], function () {
   gulp.src(['bower_components/**/*']).pipe(gulp.dest('dist/bower_components'));
-  gulp.run('style', 'jade');
+  gulp.run('style', 'jade', 'js');
 
 // Watchers
   gulp.watch(['./app/styles/**'], ['style', reload]);
   gulp.watch(['./app/**/*.jade'], ['jade', reload]);
+  gulp.watch(['./app/**/*.js'], ['js', reload]);
 });
 
 // Clean Output Directory
