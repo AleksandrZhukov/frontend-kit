@@ -6,7 +6,11 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
     del = require('del'),
-    merge = require('merge-stream');
+    merge = require('merge-stream'),
+    browserify = require('browserify'),
+    reactify = require('reactify'),
+   browserify = require("browserify"),
+    source = require("vinyl-source-stream");
 
 
 // Styles
@@ -46,6 +50,32 @@ gulp.task('js', function () {
     .pipe(plugins.size({title: 'js'}));
 });
 
+gulp.task('jsx', function () {var browserify = require("browserify");
+  return gulp.src('app/**/*.jsx')
+    .pipe(plugins.react())
+    .pipe(plugins.babel())
+    .pipe(gulp.dest('dist/'))
+    .pipe(plugins.size({title: 'jsx'}));
+});
+
+gulp.task('scripts', function () {
+  return gulp.src('app/js/app.js')
+    .pipe(browserify({
+      transform: [reactify]
+    }))
+    .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('browserify', function(){
+  var b = browserify();
+  b.transform(reactify); // use the reactify transform
+  b.transform("babelify", {presets: ["es2015", "react"]});
+  b.add('app/js/app.js');
+  return b.bundle()
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('dist/'));
+});
+
 // Start server
 gulp.task('server', ['default'], function () {
   browserSync({
@@ -57,12 +87,12 @@ gulp.task('server', ['default'], function () {
 // Main task
 gulp.task('default', ['clean'], function () {
   gulp.src(['bower_components/**/*']).pipe(gulp.dest('dist/bower_components'));
-  gulp.run('style', 'jade', 'js');
+  gulp.run('style', 'jade', 'browserify');
 
 // Watchers
   gulp.watch(['./app/styles/**'], ['style', reload]);
   gulp.watch(['./app/**/*.jade'], ['jade', reload]);
-  gulp.watch(['./app/**/*.js'], ['js', reload]);
+  gulp.watch(['./app/**/*.jsx'], ['browserify', reload]);
 });
 
 // Clean Output Directory

@@ -1,0 +1,38 @@
+.selector {
+  background-color: #d8d9e0;
+  padding: 5px;
+}
+
+.selected-users {
+  background-color: #c4c5cc;
+  margin-bottom: 5px;
+}
+
+.label {
+  display: inline-block;
+  min-width: 50px;
+  background-color: #0288d1;
+  color: #fff;
+  padding: 3px;
+}
+
+.lists {
+  background-color: #c4c5cc;
+  .departments-list,
+  .users-list {
+    vertical-align: top;
+    display: inline-block;
+    padding: 5px;
+  }
+  .departments-list {
+    width: 20%;
+    border-right: 2px solid #333;
+  }
+  .selected-department {
+    background-color: #d8d9e0;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
