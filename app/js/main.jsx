@@ -62,22 +62,19 @@ var departmentsJSON = [
 
 var SelectUsers = React.createClass({
   getInitialState: function() {
-    debugger
     return {
       depQuery: 'all'
     };
   },
 
   componentWillMount: function() {
-    debugger
     this.departments = this.props.json;
     this.users = this.getUsers();
+    this.selectedUsers = [];
     this.usersFilter('all');
-
   },
 
   getUsers: function() {
-    debugger
     let users = [];
 
     this.departments.forEach(function(item) {
@@ -91,16 +88,16 @@ var SelectUsers = React.createClass({
     return users;
   },
 
-
   selectDep: function(id) {
-    this.setState({
-      depQuery: id
-    });
+    this.setState({depQuery: id});
     this.usersFilter(id);
   },
 
+  selectUser: function(id) {
+    this.selectedUsers.push(id);
+  },
+
   usersFilter: function(depQuery) {
-    debugger
     let result;
 
     if (depQuery === 'all') {
@@ -110,15 +107,13 @@ var SelectUsers = React.createClass({
     }
 
     this.filteredUsers = result;
-
   },
 
 
   render: function() {
-    debugger
     return (
       <div className="selector">
-        <SelectedUsers />
+        <SelectedUsers selectedUsers={this.selectedUsers}/>
 
         <div className="lists">
           <DepartmentsList
@@ -126,7 +121,10 @@ var SelectUsers = React.createClass({
             selectedDep={this.state.depQuery}
             selectDep={this.selectDep}
             />
-          <UsersList users={this.filteredUsers}/>
+          <UsersList
+            users={this.filteredUsers}
+            selectUser={this.selectUser}
+            />
         </div>
       </div>
     );
@@ -134,12 +132,25 @@ var SelectUsers = React.createClass({
 });
 
 var SelectedUsers = React.createClass({
+  propTypes: {
+    selectedUsers: React.PropTypes.array
+  },
+
   render: function() {
+    debugger
+    let selectedUsersList = this.props.selectedUsers.map(user => {
+      debugger;
+      return (
+        <div className="label" key={user.id}>
+          {user.full_name}
+          ×
+        </div>
+      );
+    });
     return (
       <div className="selected-users">
         <div className="label">
-          dfgldkfglkdfg
-          ×
+          {selectedUsersList}
         </div>
         add
       </div>
@@ -167,7 +178,6 @@ var DepartmentsList = React.createClass({
 
 
   render: function() {
-    debugger
     let departmentsList = this.props.departments.map(dep => {
       let departmentClass = classNames({
         'pointer': true,
@@ -192,13 +202,20 @@ var DepartmentsList = React.createClass({
 
 var UsersList = React.createClass({
   propTypes: {
-    users: React.PropTypes.array
+    users: React.PropTypes.array,
+    selectUser: React.PropTypes.func.isRequired
+  },
+
+  selectUser: function(ev) {
+    debugger
+    let userId = +ev.currentTarget.dataset.id;
+    this.props.selectUser(userId);
   },
 
   render: function() {
-    let usersList = this.props.users.map(function(user) {
+    let usersList = this.props.users.map(user => {
       return (
-        <div key={user.id}> {user.full_name} </div>
+        <div key={user.id} data-id={user.id} onClick={this.selectUser}> {user.full_name} </div>
       );
     });
     return (
